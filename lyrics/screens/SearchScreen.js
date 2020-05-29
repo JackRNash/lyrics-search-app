@@ -56,7 +56,9 @@ const SearchScreen = props => {
         <View style={styles.button}>
           <Button
             title="Search"
-            onPress={() => props.navigation.navigate('Lyrics')}
+            onPress={
+              () => props.navigation.navigate('Lyrics', {'song': song, 'artist': artist})
+            }
           />
         </View>
         {/* </Card> */}
