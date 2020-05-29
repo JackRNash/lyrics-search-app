@@ -6,26 +6,26 @@ import {
 } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
+import Colors from '../constants/Colors'
 
 const LyricsScreen = props => {//({ route, navigation }) => {
   const song = props.song //route.params.song
-  const artist = props.song //route.params.artist
+  const artist = props.artist //route.params.artist
   const lyrics = props.lyrics //route.params.lyrics
-  console.log(props)
 
   return (
     <View style={styles.container}>
       <View style={styles.descContainer}>
-        <Text>{song}</Text>
-        <Text>by {artist}</Text>
+        <Text style={styles.song}>{song}</Text>
+        <Text style={styles.byArtist}>by {artist}</Text>
       </View>
 
       <ScrollView style={styles.lyricsContainer}>
-        <Text>{lyrics}</Text>
+        <Text style={styles.lyricsText}>{lyrics}</Text>
       </ScrollView>
 
       <View>
-        <Text>Lyrics supplied by Genius</Text>
+        <Text style={styles.watermark}>Lyrics supplied by Genius.com</Text>
       </View>
     </View>
   )
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     right: 0,
     ...Platform.select({
       ios: {
-        shadowColor: 'black',
+        shadowColor: Colors.primaryColor,
         shadowOffset: { width: 0, height: -3 },
         shadowOpacity: 0.1,
         shadowRadius: 3,
@@ -54,19 +54,37 @@ const styles = StyleSheet.create({
         elevation: 20,
       },
     }),
-    backgroundColor: '#fbfbfb',
+    backgroundColor: Colors.primaryColor,//'#fbfbfb',
     paddingVertical: 20,
     paddingLeft: 15,
   },
-  lyricsContainer: {
-    marginTop: 80,
-    // marginBottom: 10
+  song: {
+    fontFamily: 'nunito',
+    fontSize: 30
   },
+  byArtist: {
+    fontFamily: 'nunito-light',
+    fontSize: 20
+  },
+  lyricsContainer: {
+    marginTop: 120,
+  },
+  lyricsText: {
+    fontFamily: 'nunito',
+    fontSize: 15
+  },
+  watermark: {
+    fontFamily: 'nunito-light',
+    color: 'grey'
+  }
 })
 
 const mapStateToProps = (state) => {
-  const { song, artist, lyrics } = state
-  return { song, artist, lyrics }
-};
+  return {
+    song: state.song,
+    artist: state.artist,
+    lyrics: state.lyrics
+  }
+}
 
 export default connect(mapStateToProps)(LyricsScreen)

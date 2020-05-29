@@ -14,7 +14,6 @@ import { setArtist, setSong, setLyrics } from '../state/actions'
 import { connect } from 'react-redux'
 
 const SearchScreen = props => {
-  const [loading, setLoading] = useState(false)
 
   const songHandler = newSong => {
     props.setSong(newSong)
@@ -25,7 +24,6 @@ const SearchScreen = props => {
   }
 
   const lyricFailHandler = () => {
-    setLoading(false)
     Alert.alert('Song Not Found',
       "We couldn't find that song...\n\nDouble check your spelling and that you have an internet connection",
       [{ text: 'Okay', style: 'default' }]
@@ -33,7 +31,6 @@ const SearchScreen = props => {
   }
 
   const lyricSuccessHandler = lyrics => {
-    setLoading(false)
     if (lyrics == null || lyrics === '.') {
       lyricFailHandler() // if not found, will be null or .
     } else {
@@ -45,7 +42,6 @@ const SearchScreen = props => {
   const pressSearch = () => {
     // setLyrics('')
     Keyboard.dismiss()
-    setLoading(true)
     fetchLyrics(props.song, props.artist).then(lyricSuccessHandler, lyricFailHandler)
   }
 
@@ -91,8 +87,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setArtist: artist => dispatch(setArtist(artist)),
   setSong: song => dispatch(setSong(song)),
+  setArtist: artist => dispatch(setArtist(artist)),
   setLyrics: lyrics => dispatch(setLyrics(lyrics))
 })
 
@@ -112,7 +108,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 60,
-    fontFamily: 'avenir',
+    fontFamily: 'nunito-light',
   },
   inputContainer: {
     width: '60%',
@@ -121,7 +117,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontSize: 30,
-    fontFamily: 'avenir',
+    fontFamily: 'nunito-light',
   },
   input: {
     width: '80%',
