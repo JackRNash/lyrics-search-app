@@ -5,11 +5,13 @@ import {
   StyleSheet
 } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { connect } from 'react-redux'
 
-const LyricsScreen = ({ route, navigation }) => {
-  const song = route.params.song
-  const artist = route.params.artist
-  const lyrics = route.params.lyrics
+const LyricsScreen = props => {//({ route, navigation }) => {
+  const song = props.song //route.params.song
+  const artist = props.song //route.params.artist
+  const lyrics = props.lyrics //route.params.lyrics
+  console.log(props)
 
   return (
     <View style={styles.container}>
@@ -21,6 +23,10 @@ const LyricsScreen = ({ route, navigation }) => {
       <ScrollView style={styles.lyricsContainer}>
         <Text>{lyrics}</Text>
       </ScrollView>
+
+      <View>
+        <Text>Lyrics supplied by Genius</Text>
+      </View>
     </View>
   )
 }
@@ -58,4 +64,9 @@ const styles = StyleSheet.create({
   },
 })
 
-export default LyricsScreen
+const mapStateToProps = (state) => {
+  const { song, artist, lyrics } = state
+  return { song, artist, lyrics }
+};
+
+export default connect(mapStateToProps)(LyricsScreen)

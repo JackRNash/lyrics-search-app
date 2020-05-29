@@ -1,5 +1,6 @@
+lyrics/node_modules/**/*
 node_modules/**/*
-.expo/*
+lyrics/.expo/*
 npm-debug.*
 *.jks
 *.p8
@@ -8,6 +9,9 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+
+# apiKeys
+secret.js
 
 # macOS
 .DS_Store

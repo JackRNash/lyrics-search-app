@@ -9,56 +9,53 @@ import {
   Keyboard,
   Alert,
 } from 'react-native'
-// import { NavigationContainer } from '@react-navigation/native'
-// import { createStackNavigator } from '@react-navigation/stack'
-import Card from '../components/Card'
-import fetchLyrics  from '../components/LyricFetch'
+import fetchLyrics from '../components/LyricFetch'
+import { setArtist, setSong, setLyrics } from '../state/actions'
+import { connect } from 'react-redux'
 
 const SearchScreen = props => {
-  const [song, setSong] = useState('')
-  const [artist, setArtist] = useState('')
-  const [lyrics, setLyrics] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const songHandler = newSong => {
-    setSong(newSong)
+    props.setSong(newSong)
   }
 
   const artistHandler = newArtist => {
-    setArtist(newArtist)
+    props.setArtist(newArtist)
   }
 
   const lyricFailHandler = () => {
-    console.log('Song not found :(')
-    Alert.alert('Song Not Found', 
-    "We couldn't find that song... Double check your spelling and that you have an internet connection",
-    [{ text: 'Okay', style: 'default'}]
+    setLoading(false)
+    Alert.alert('Song Not Found',
+      "We couldn't find that song...\n\nDouble check your spelling and that you have an internet connection",
+      [{ text: 'Okay', style: 'default' }]
     )
   }
 
   const lyricSuccessHandler = lyrics => {
+    setLoading(false)
     if (lyrics == null || lyrics === '.') {
       lyricFailHandler() // if not found, will be null or .
     } else {
-      console.log(lyrics)
-      props.navigation.navigate('Lyrics', {'song': song, 'artist': artist, 'lyrics': lyrics})
+      props.setLyrics(lyrics)
+      props.navigation.navigate('Lyrics')// {'song': song, 'artist': artist, 'lyrics': lyrics})
     }
   }
 
   const pressSearch = () => {
-    setLyrics('')
-    fetchLyrics(song, artist).then(lyricSuccessHandler, lyricFailHandler)
+    // setLyrics('')
+    Keyboard.dismiss()
+    setLoading(true)
+    fetchLyrics(props.song, props.artist).then(lyricSuccessHandler, lyricFailHandler)
   }
 
 
   return (
-    <TouchableWithoutFeedback onPress={() =>
-      Keyboard.dismiss()
-    }>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>lyrics</Text>
         </View>
-        {/* <Card style={styles.inputContainer}> */}
         <TextInput
           placeholder="song"
           style={{ ...styles.inputText, ...styles.input }}
@@ -71,20 +68,36 @@ const SearchScreen = props => {
           style={{ ...styles.inputText, ...styles.input }}
           underlineColorAndroid='transparent'
           onChangeText={artistHandler}
+          onSubmitEditing={pressSearch}
         />
         <View style={styles.button}>
           <Button
             title="Search"
+            style={styles.button}
             onPress={pressSearch}
           />
         </View>
-        {/* </Card> */}
       </View>
     </TouchableWithoutFeedback>
   )
 }
 
-export default SearchScreen
+const mapStateToProps = (state) => {
+  return {
+    song: state.song,
+    artist: state.artist,
+    lyrics: state.lyrics
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  setArtist: artist => dispatch(setArtist(artist)),
+  setSong: song => dispatch(setSong(song)),
+  setLyrics: lyrics => dispatch(setLyrics(lyrics))
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen)
 
 const styles = StyleSheet.create({
   container: {
@@ -95,12 +108,11 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: 'center',
-    height: '30%',
-    maxHeight: 200
-    // width: '100%'
+    height: 100
   },
   title: {
     fontSize: 60,
+    fontFamily: 'avenir',
   },
   inputContainer: {
     width: '60%',
@@ -108,14 +120,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   inputText: {
-    fontSize: 30
+    fontSize: 30,
+    fontFamily: 'avenir',
   },
   input: {
     width: '80%',
     textAlign: 'center',
   },
   button: {
-    width: '30%',
-    marginTop: 10
+    width: 80,
+    marginTop: 10,
   }
 })
