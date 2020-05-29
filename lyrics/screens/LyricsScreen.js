@@ -5,14 +5,12 @@ import {
   StyleSheet
 } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import fetchLyrics  from '../LyricFetch'
 
 const LyricsScreen = ({ route, navigation }) => {
   const song = route.params.song
   const artist = route.params.artist
-  const [lyrics, setLyrics] = useState('')
-  fetchLyrics(song, artist).then(lyrics => setLyrics(lyrics))
-  
+  const lyrics = route.params.lyrics
+
   return (
     <View style={styles.container}>
       <View style={styles.descContainer}>
@@ -55,7 +53,8 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   lyricsContainer: {
-    marginTop: 100
+    marginTop: 80,
+    // marginBottom: 10
   },
 })
 

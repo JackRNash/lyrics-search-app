@@ -12,10 +12,12 @@ import {
 // import { NavigationContainer } from '@react-navigation/native'
 // import { createStackNavigator } from '@react-navigation/stack'
 import Card from '../components/Card'
+import fetchLyrics  from '../components/LyricFetch'
 
 const SearchScreen = props => {
   const [song, setSong] = useState('')
   const [artist, setArtist] = useState('')
+  const [lyrics, setLyrics] = useState('')
 
   const songHandler = newSong => {
     setSong(newSong)
@@ -25,8 +27,26 @@ const SearchScreen = props => {
     setArtist(newArtist)
   }
 
-  const pressSearch = () => {
+  const lyricFailHandler = () => {
+    console.log('Song not found :(')
+    Alert.alert('Song Not Found', 
+    "We couldn't find that song... Double check your spelling and that you have an internet connection",
+    [{ text: 'Okay', style: 'default'}]
+    )
+  }
 
+  const lyricSuccessHandler = lyrics => {
+    if (lyrics == null || lyrics === '.') {
+      lyricFailHandler() // if not found, will be null or .
+    } else {
+      console.log(lyrics)
+      props.navigation.navigate('Lyrics', {'song': song, 'artist': artist, 'lyrics': lyrics})
+    }
+  }
+
+  const pressSearch = () => {
+    setLyrics('')
+    fetchLyrics(song, artist).then(lyricSuccessHandler, lyricFailHandler)
   }
 
 
@@ -50,15 +70,12 @@ const SearchScreen = props => {
           placeholder="artist"
           style={{ ...styles.inputText, ...styles.input }}
           underlineColorAndroid='transparent'
-          // placeholderTextColor="#A9A9A9"
           onChangeText={artistHandler}
         />
         <View style={styles.button}>
           <Button
             title="Search"
-            onPress={
-              () => props.navigation.navigate('Lyrics', {'song': song, 'artist': artist})
-            }
+            onPress={pressSearch}
           />
         </View>
         {/* </Card> */}
@@ -94,10 +111,6 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   input: {
-    // backgroundColor: '#F5F5F5',
-    // borderRadius: 10,
-    // borderWidth: 0,
-    // borderBottomWidth: 2,
     width: '80%',
     textAlign: 'center',
   },
