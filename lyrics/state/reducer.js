@@ -6,18 +6,18 @@ const initial_state = {
   lyrics: '',
   // temporary for testing purposes
   history: [
-    {
-      song: 'Borderline',
-      artist: 'Brad Sucks',
-      lyrics: '',
-      id: 1
-    },
-    {
-      song: 'Dropping out of school',
-      artist: 'Brad Sucks',
-      lyrics: '',
-      id: 2
-    },
+    // {
+    //   song: 'Borderline',
+    //   artist: 'Brad Sucks',
+    //   lyrics: '',
+    //   id: 1
+    // },
+    // {
+    //   song: 'Dropping out of school',
+    //   artist: 'Brad Sucks',
+    //   lyrics: '',
+    //   id: 2
+    // },
   ]
 }
 

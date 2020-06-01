@@ -5,6 +5,14 @@ import Colors from '../constants/Colors'
 import { connect } from 'react-redux'
 
 const History = props => {
+  let noSearches
+
+  if (props.history.length === 0) {
+    noSearches = (
+      <Text style={styles.noSearch}>No previous searches...</Text>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -26,6 +34,7 @@ const History = props => {
             )
           })}
       </View>
+      {noSearches}
     </View>
   )
 }
@@ -75,5 +84,10 @@ const styles = StyleSheet.create({
   searchContainer: {
     marginTop: 100,
     // justifyContent: 'flex-start'
+  },
+  noSearch: {
+    fontFamily: 'nunito',
+    fontSize: 20,
+    color: 'grey'
   }
 })
