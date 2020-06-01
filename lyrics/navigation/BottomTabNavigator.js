@@ -2,12 +2,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import HistoryScreen from '../screens/HistoryScreen'
+// import HomeScreen from '../screens/HomeScreen';
+// import LinksScreen from '../screens/LinksScreen';
+// import HistoryScreen from '../screens/HistoryScreen'
 // import SearchScreen from '../screens/SearchScreen'
 // import LyricsScreen from '../screens/LyricsScreen'
 import SearchStack from './SearchStack'
+import HistoryStack from './HistoryStack'
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -46,7 +47,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="History"
-        component={HistoryScreen}
+        component={HistoryStack}
         options={{
           title: 'History',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-time" />,

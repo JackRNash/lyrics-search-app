@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import Song from '../components/Song'
 import Colors from '../constants/Colors'
 import { connect } from 'react-redux'
@@ -9,7 +9,9 @@ const History = props => {
 
   if (props.history.length === 0) {
     noSearches = (
-      <Text style={styles.noSearch}>No previous searches...</Text>
+      <View style={{ justifyContent: 'center' }}>
+        <Text style={styles.noSearch}>No previous searches...</Text>
+      </View>
     )
   }
 
@@ -19,22 +21,31 @@ const History = props => {
         <Text style={styles.title}>Recent Searches</Text>
       </View>
 
-      <View style={styles.searchContainer}>
+      <ScrollView style={styles.searchContainer}>
         {/* <Song title="Making Me Nervous" artist="Brad Sucks" /> */}
 
         {
           props.history.map((prevSearch) => {
+            // console.log('Key:', prevSearch.id)
+            const delSong = () => {
+              () =>
+                console.log("navigating...")
+              props.navigation.navigate('Lyrics', { 'song': prevSearch.song, 'artist': prevSearch.artist, 'lyrics': prevSearch.lyrics })
+            }
             return (
               <Song
                 key={prevSearch.id}
                 title={prevSearch.song}
                 artist={prevSearch.artist}
+                lyrics={prevSearch.lyrics}
                 id={prevSearch.id}
+                showLyrics={delSong}
               />
             )
           })}
-      </View>
+      </ScrollView>
       {noSearches}
+
     </View>
   )
 }
@@ -74,15 +85,16 @@ const styles = StyleSheet.create({
       },
     }),
     backgroundColor: Colors.primaryColor,//'#fbfbfb',
-    paddingVertical: 20,
+    paddingVertical: 30,
+    paddingTop: 40,
     paddingLeft: 15,
   },
   title: {
     fontFamily: 'nunito',
-    fontSize: 30
+    fontSize: 40
   },
   searchContainer: {
-    marginTop: 100,
+    marginTop: 130,
     // justifyContent: 'flex-start'
   },
   noSearch: {

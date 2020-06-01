@@ -35,8 +35,8 @@ const SearchScreen = props => {
       lyricFailHandler() // if not found, will be null or .
     } else {
       props.setLyrics(lyrics)
-      props.addSearch(props.song, props.artist, props.lyrics)
-      props.navigation.navigate('Lyrics')// {'song': song, 'artist': artist, 'lyrics': lyrics})
+      props.addSearch(props.song, props.artist, lyrics)
+      props.navigation.navigate('Lyrics', {'song': props.song, 'artist': props.artist, 'lyrics': lyrics})
     }
   }
 

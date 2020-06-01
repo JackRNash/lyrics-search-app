@@ -9,19 +9,19 @@ const initial_state = {
     // {
     //   song: 'Borderline',
     //   artist: 'Brad Sucks',
-    //   lyrics: '',
+    //   lyrics: 'Ignore the sirens',
     //   id: 1
     // },
     // {
     //   song: 'Dropping out of school',
     //   artist: 'Brad Sucks',
-    //   lyrics: '',
+    //   lyrics: 'This is a test of emergency preparedness',
     //   id: 2
     // },
   ]
 }
 
-let song_id = 0
+let song_id = 3
 
 const lyricsReducer = (state = initial_state, action) => {
   switch (action.type) {

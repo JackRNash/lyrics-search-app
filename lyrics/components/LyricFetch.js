@@ -8,6 +8,5 @@ export default function fetchLyrics(song, artist) {
     artist: artist,
     optimizeQuery: true
   }
-  console.log("Received "+options.title+" by "+options.artist)
   return getLyrics(options)
 }
