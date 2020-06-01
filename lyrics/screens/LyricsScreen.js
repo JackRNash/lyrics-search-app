@@ -2,9 +2,10 @@ import React, {useState} from 'react'
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  ScrollView
 } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+// import { ScrollView } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import Colors from '../constants/Colors'
 

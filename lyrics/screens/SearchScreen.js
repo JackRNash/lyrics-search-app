@@ -10,7 +10,7 @@ import {
   Alert,
 } from 'react-native'
 import fetchLyrics from '../components/LyricFetch'
-import { setArtist, setSong, setLyrics } from '../state/actions'
+import { setArtist, setSong, setLyrics, addSearch } from '../state/actions'
 import { connect } from 'react-redux'
 
 const SearchScreen = props => {
@@ -35,6 +35,7 @@ const SearchScreen = props => {
       lyricFailHandler() // if not found, will be null or .
     } else {
       props.setLyrics(lyrics)
+      props.addSearch(props.song, props.artist, props.lyrics)
       props.navigation.navigate('Lyrics')// {'song': song, 'artist': artist, 'lyrics': lyrics})
     }
   }
@@ -82,14 +83,16 @@ const mapStateToProps = (state) => {
   return {
     song: state.song,
     artist: state.artist,
-    lyrics: state.lyrics
+    lyrics: state.lyrics,
+    history: state.history
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   setSong: song => dispatch(setSong(song)),
   setArtist: artist => dispatch(setArtist(artist)),
-  setLyrics: lyrics => dispatch(setLyrics(lyrics))
+  setLyrics: lyrics => dispatch(setLyrics(lyrics)),
+  addSearch: (song, artist, lyrics) => dispatch(addSearch(song, artist, lyrics))
 })
 
 

@@ -13,10 +13,14 @@ export const setLyrics = lyrics => ({
   lyrics: lyrics
 })
 
-let nextHistId = 0
 export const addSearch = (song, artist, lyrics) => ({
   type: 'ADD_SEARCH',
   song,
   artist,
   lyrics
+})
+
+export const delSearch = id => ({
+  type: 'DEL_SEARCH',
+  id
 })

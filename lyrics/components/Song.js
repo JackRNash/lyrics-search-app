@@ -8,14 +8,23 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import Colors from '../constants/Colors'
 import Card from './Card'
+import { connect } from 'react-redux'
+import { delSearch } from '../state/actions'
 
 const Song = props => {
+  const removeSong = () => {
+    console.log("removing id:", props.id)
+    props.delSearch(props.id)
+  }
+
   return (
     // <View style={styles.container}>
     <Card style={styles.card}>
       <View style={styles.firstRow}>
-        <TouchableOpacity 
-          activeOpacity={0.1} onPress={() => console.log('worked4')}>
+        <TouchableOpacity
+          activeOpacity={0.1}
+          onPress={removeSong}
+        >
           <Ionicons
             name='ios-close'
             size={30}
@@ -31,12 +40,24 @@ const Song = props => {
   )
 }
 
+const mapStateToProps = (state) => {
+  return { history: state.history }
+}
+
+const mapDispatchToProps = dispatch => ({
+  delSearch: id => dispatch(delSearch(id))
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Song)
+
 const styles = StyleSheet.create({
   container: {
     // flex: 1
   },
   card: {
-    width: '60%',
+    // width: '60%',
+    margin: 10
   },
   close: {
     // position: 'absolute',
@@ -51,12 +72,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'nunito',
-    fontSize: 18
+    fontSize: 18,
+    // color: '#808080'
   },
   byArtist: {
-    fontFamily: 'nunito',
-    fontSize: 14
+    fontFamily: 'nunito-light',
+    fontSize: 16,
+    marginTop: -10,
+    // color: 'grey'
   }
 })
-
-export default Song
