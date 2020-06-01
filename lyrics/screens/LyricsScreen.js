@@ -1,13 +1,21 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
   StyleSheet,
   ScrollView
 } from 'react-native'
-// import { ScrollView } from 'react-native-gesture-handler'
-// import { connect } from 'react-redux'
 import Colors from '../constants/Colors'
+
+// This screen displays the lyrics of a song.
+// It takes in the following properties:
+// * song - title of the song
+// * artist - artist of the song
+// * lyrics - lyrics for the song
+// It was written using input properties instead of the
+// the song / artist / lyrics in the store so that
+// the screen could be easily used in the history
+// tab as well.
 
 const LyricsScreen = ({ route, navigation }) => {
   const song = route.params.song
@@ -79,13 +87,5 @@ const styles = StyleSheet.create({
     color: 'grey'
   }
 })
-
-// const mapStateToProps = (state) => {
-//   return {
-//     song: state.song,
-//     artist: state.artist,
-//     lyrics: state.lyrics
-//   }
-// }
 
 export default LyricsScreen

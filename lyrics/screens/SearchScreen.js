@@ -13,6 +13,13 @@ import fetchLyrics from '../components/LyricFetch'
 import { setArtist, setSong, setLyrics, addSearch } from '../state/actions'
 import { connect } from 'react-redux'
 
+// The search screen is the main screen of the app.
+// Users can enter the title and (optionally) the artist
+// of a song and press search to get the lyrics. In the
+// event that the song is not found, an alert pops up
+// informing the user and suggesting they check their
+// internet connection and spelling.
+
 const SearchScreen = props => {
 
   const songHandler = newSong => {
@@ -23,6 +30,7 @@ const SearchScreen = props => {
     props.setArtist(newArtist)
   }
 
+  // handles the case that the lyrics are not found
   const lyricFailHandler = () => {
     Alert.alert('Song Not Found',
       "We couldn't find that song...\n\nDouble check your spelling and that you have an internet connection",
@@ -30,19 +38,21 @@ const SearchScreen = props => {
     )
   }
 
+  // handles the case that the lyrics are found
   const lyricSuccessHandler = lyrics => {
     if (lyrics == null || lyrics === '.') {
       lyricFailHandler() // if not found, will be null or .
     } else {
       props.setLyrics(lyrics)
-      props.addSearch(props.song, props.artist, lyrics)
-      props.navigation.navigate('Lyrics', {'song': props.song, 'artist': props.artist, 'lyrics': lyrics})
+      props.addSearch(props.song, props.artist, lyrics) // update the history tab
+      props.navigation.navigate('Lyrics', { 'song': props.song, 'artist': props.artist, 'lyrics': lyrics })
     }
   }
 
   const pressSearch = () => {
-    // setLyrics('')
     Keyboard.dismiss()
+    // fetchLyrics returuns a promise and which function is executed depends on if
+    // it was resolved succesfully or not
     fetchLyrics(props.song, props.artist).then(lyricSuccessHandler, lyricFailHandler)
   }
 

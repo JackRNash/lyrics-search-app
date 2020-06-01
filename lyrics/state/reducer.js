@@ -4,21 +4,7 @@ const initial_state = {
   song: '',
   artist: '',
   lyrics: '',
-  // temporary for testing purposes
-  history: [
-    // {
-    //   song: 'Borderline',
-    //   artist: 'Brad Sucks',
-    //   lyrics: 'Ignore the sirens',
-    //   id: 1
-    // },
-    // {
-    //   song: 'Dropping out of school',
-    //   artist: 'Brad Sucks',
-    //   lyrics: 'This is a test of emergency preparedness',
-    //   id: 2
-    // },
-  ]
+  history: []
 }
 
 let song_id = 3
@@ -46,7 +32,7 @@ const lyricsReducer = (state = initial_state, action) => {
           lyrics: action.lyrics,
           id: song_id++
         }
-      ]
+        ]
       })
     case 'DEL_SEARCH':
       return Object.assign({}, state, {

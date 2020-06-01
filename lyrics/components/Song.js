@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableNativeFeedback
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import Colors from '../constants/Colors'
@@ -12,13 +12,22 @@ import Card from './Card'
 import { connect } from 'react-redux'
 import { delSearch } from '../state/actions'
 
+// This component displays a single song (to be used in 
+// the history screen). It takes in the following properties:
+// * title - the title of this song
+// * artist - the artist for this song
+// * id - the id of this element in the history (assigned when 
+//        first added)
+// * showLyrics - a functoin that navigates to a lyrics screen
+//                and displays the correct lyrics associated 
+//                with this song
+
 const Song = props => {
   const removeSong = () => {
     props.delSearch(props.id)
   }
 
   return (
-    // <View style={styles.container}>
     <Card style={styles.card}>
       <TouchableOpacity onPress={props.showLyrics}>
         <View style={styles.firstRow}>
@@ -38,7 +47,6 @@ const Song = props => {
         <Text style={styles.byArtist}>by {props.artist}</Text>
       </TouchableOpacity>
     </Card>
-    // </View>
   )
 }
 
@@ -54,17 +62,11 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(Song)
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1
-  },
   card: {
-    // width: '60%',
     margin: 10
   },
   close: {
-    // position: 'absolute',
     top: -15,
-    // left: 0,
     right: 0,
     alignSelf: 'flex-end'
   },
@@ -75,12 +77,10 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'nunito',
     fontSize: 18,
-    // color: '#808080'
   },
   byArtist: {
     fontFamily: 'nunito-light',
     fontSize: 16,
     marginTop: -10,
-    // color: 'grey'
   }
 })

@@ -4,12 +4,18 @@ import Song from '../components/Song'
 import Colors from '../constants/Colors'
 import { connect } from 'react-redux'
 
-const History = props => {
-  let noSearches
+// This screen displays the history of a user's searches and
+// allows them to easily access the lyrics of a song they previously
+// searched by clicking on it. They can also remove a song from the tab
+// by clicking on an X in the upper right corner. Only successful searches
+// are included in the history.
 
+const History = props => {
+  // Add a message stating acknowledging that the history is empty
+  let noSearches
   if (props.history.length === 0) {
     noSearches = (
-      <View style={{ justifyContent: 'center' }}>
+      <View style={{ justifyContent: 'center', marginTop: '100%' }}>
         <Text style={styles.noSearch}>No previous searches...</Text>
       </View>
     )
@@ -21,12 +27,11 @@ const History = props => {
         <Text style={styles.title}>Recent Searches</Text>
       </View>
 
+      {noSearches}
       <ScrollView style={styles.searchContainer}>
-        {/* <Song title="Making Me Nervous" artist="Brad Sucks" /> */}
 
         {
           props.history.map((prevSearch) => {
-            // console.log('Key:', prevSearch.id)
             const delSong = () => {
               () =>
                 console.log("navigating...")
@@ -44,7 +49,6 @@ const History = props => {
             )
           })}
       </ScrollView>
-      {noSearches}
 
     </View>
   )
@@ -66,7 +70,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    // justifyContent: 'center',
   },
   titleContainer: {
     position: 'absolute',
@@ -84,10 +87,11 @@ const styles = StyleSheet.create({
         elevation: 20,
       },
     }),
-    backgroundColor: Colors.primaryColor,//'#fbfbfb',
+    backgroundColor: Colors.primaryColor,
     paddingVertical: 30,
     paddingTop: 40,
     paddingLeft: 15,
+    alignItems: 'center'
   },
   title: {
     fontFamily: 'nunito',
@@ -95,7 +99,6 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     marginTop: 130,
-    // justifyContent: 'flex-start'
   },
   noSearch: {
     fontFamily: 'nunito',
