@@ -4,6 +4,7 @@ import * as React from 'react';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
+import HistoryScreen from '../screens/HistoryScreen'
 // import SearchScreen from '../screens/SearchScreen'
 // import LyricsScreen from '../screens/LyricsScreen'
 import SearchStack from './SearchStack'
@@ -43,11 +44,14 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-search" />,
         }}
       />
-      {/* <BottomTab.Screen
-        name="Lyrics"
-        component={LyricsScreen}
-        showLabel={false}
-      /> */}
+      <BottomTab.Screen
+        name="History"
+        component={HistoryScreen}
+        options={{
+          title: 'History',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-time" />,
+        }}
+      />
     </BottomTab.Navigator>
   );
 }
@@ -62,6 +66,8 @@ function getHeaderTitle(route) {
       return 'Links to learn more';
     case 'Search':
       return 'Search'
+    case 'History':
+      return 'History'
     default:
       return ''
   }

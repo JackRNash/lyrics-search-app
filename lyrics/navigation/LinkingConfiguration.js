@@ -10,6 +10,7 @@ export default {
         Links: 'links',
         Search: 'search',
         Lyrics: 'lyrics',
+        History: 'history'
       },
     },
   },
