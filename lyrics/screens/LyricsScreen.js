@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   View,
   Text,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Platform
 } from 'react-native'
 import Colors from '../constants/Colors'
 
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   descContainer: {
     position: 'absolute',
@@ -57,15 +58,15 @@ const styles = StyleSheet.create({
         shadowColor: Colors.primaryColor,
         shadowOffset: { width: 0, height: -3 },
         shadowOpacity: 0.1,
-        shadowRadius: 3,
+        shadowRadius: 3
       },
       android: {
-        elevation: 20,
-      },
+        elevation: 20
+      }
     }),
-    backgroundColor: Colors.primaryColor,//'#fbfbfb',
+    backgroundColor: Colors.primaryColor, // '#fbfbfb',
     paddingVertical: 20,
-    paddingLeft: 15,
+    paddingLeft: 15
   },
   song: {
     fontFamily: 'nunito',
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   lyricsContainer: {
-    marginTop: 120,
+    marginTop: 120
   },
   lyricsText: {
     fontFamily: 'nunito',

@@ -1,15 +1,13 @@
-import { setSong, setArtist, setLyrics, addSearch } from './actions'
-
-const initial_state = {
+const initialState = {
   song: '',
   artist: '',
   lyrics: '',
   history: []
 }
 
-let song_id = 3
+let songId = 3
 
-const lyricsReducer = (state = initial_state, action) => {
+const lyricsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_SONG':
       return Object.assign({}, state, {
@@ -26,12 +24,12 @@ const lyricsReducer = (state = initial_state, action) => {
     case 'ADD_SEARCH':
       return Object.assign({}, state, {
         history: [...state.history,
-        {
-          song: action.song,
-          artist: action.artist,
-          lyrics: action.lyrics,
-          id: song_id++
-        }
+          {
+            song: action.song,
+            artist: action.artist,
+            lyrics: action.lyrics,
+            id: songId++
+          }
         ]
       })
     case 'DEL_SEARCH':

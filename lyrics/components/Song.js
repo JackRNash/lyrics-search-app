@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
-  TouchableNativeFeedback
+  TouchableOpacity
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import Colors from '../constants/Colors'
@@ -12,14 +11,14 @@ import Card from './Card'
 import { connect } from 'react-redux'
 import { delSearch } from '../state/actions'
 
-// This component displays a single song (to be used in 
+// This component displays a single song (to be used in
 // the history screen). It takes in the following properties:
 // * title - the title of this song
 // * artist - the artist for this song
-// * id - the id of this element in the history (assigned when 
+// * id - the id of this element in the history (assigned when
 //        first added)
 // * showLyrics - a functoin that navigates to a lyrics screen
-//                and displays the correct lyrics associated 
+//                and displays the correct lyrics associated
 //                with this song
 
 const Song = props => {
@@ -29,7 +28,7 @@ const Song = props => {
 
   return (
     <Card style={styles.card}>
-      <TouchableOpacity onPress={props.showLyrics}>
+      <TouchableOpacity onPress={props.handleShowLyrics}>
         <View style={styles.firstRow}>
           <TouchableOpacity
             activeOpacity={0.2}
@@ -58,7 +57,6 @@ const mapDispatchToProps = dispatch => ({
   delSearch: id => dispatch(delSearch(id))
 })
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Song)
 
 const styles = StyleSheet.create({
@@ -76,11 +74,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'nunito',
-    fontSize: 18,
+    fontSize: 18
   },
   byArtist: {
     fontFamily: 'nunito-light',
     fontSize: 16,
-    marginTop: -10,
+    marginTop: -10
   }
 })

@@ -1,5 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Platform
+} from 'react-native'
 import Song from '../components/Song'
 import Colors from '../constants/Colors'
 import { connect } from 'react-redux'
@@ -32,10 +38,8 @@ const History = props => {
 
         {
           props.history.map((prevSearch) => {
-            const delSong = () => {
-              () =>
-                console.log("navigating...")
-              props.navigation.navigate('Lyrics', { 'song': prevSearch.song, 'artist': prevSearch.artist, 'lyrics': prevSearch.lyrics })
+            const showLyrics = () => {
+              props.navigation.navigate('Lyrics', { song: prevSearch.song, artist: prevSearch.artist, lyrics: prevSearch.lyrics })
             }
             return (
               <Song
@@ -44,10 +48,11 @@ const History = props => {
                 artist={prevSearch.artist}
                 lyrics={prevSearch.lyrics}
                 id={prevSearch.id}
-                showLyrics={delSong}
+                handleShowLyrics={showLyrics}
               />
             )
-          })}
+          })
+        }
       </ScrollView>
 
     </View>
@@ -69,7 +74,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   titleContainer: {
     position: 'absolute',
@@ -81,11 +86,11 @@ const styles = StyleSheet.create({
         shadowColor: Colors.primaryColor,
         shadowOffset: { width: 0, height: -3 },
         shadowOpacity: 0.1,
-        shadowRadius: 3,
+        shadowRadius: 3
       },
       android: {
-        elevation: 20,
-      },
+        elevation: 20
+      }
     }),
     backgroundColor: Colors.primaryColor,
     paddingVertical: 30,
@@ -98,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 40
   },
   searchContainer: {
-    marginTop: 130,
+    marginTop: 130
   },
   noSearch: {
     fontFamily: 'nunito',

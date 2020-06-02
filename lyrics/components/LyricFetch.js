@@ -1,7 +1,7 @@
-import { getLyrics, getSong } from 'genius-lyrics-api'
-import {REACT_APP_GENIUS_API_KEY} from '../secret'
+import { getLyrics } from 'genius-lyrics-api'
+import { REACT_APP_GENIUS_API_KEY } from '../secret'
 
-export default function fetchLyrics(song, artist) {
+export default function fetchLyrics (song, artist) {
   const options = {
     apiKey: REACT_APP_GENIUS_API_KEY,
     title: song,

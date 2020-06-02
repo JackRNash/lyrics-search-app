@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   Button,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
+  Alert
 } from 'react-native'
 import fetchLyrics from '../components/LyricFetch'
 import { setArtist, setSong, setLyrics, addSearch } from '../state/actions'
@@ -21,7 +21,6 @@ import { connect } from 'react-redux'
 // internet connection and spelling.
 
 const SearchScreen = props => {
-
   const songHandler = newSong => {
     props.setSong(newSong)
   }
@@ -45,7 +44,7 @@ const SearchScreen = props => {
     } else {
       props.setLyrics(lyrics)
       props.addSearch(props.song, props.artist, lyrics) // update the history tab
-      props.navigation.navigate('Lyrics', { 'song': props.song, 'artist': props.artist, 'lyrics': lyrics })
+      props.navigation.navigate('Lyrics', { song: props.song, artist: props.artist, lyrics: lyrics })
     }
   }
 
@@ -56,7 +55,6 @@ const SearchScreen = props => {
     fetchLyrics(props.song, props.artist).then(lyricSuccessHandler, lyricFailHandler)
   }
 
-
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
@@ -64,14 +62,14 @@ const SearchScreen = props => {
           <Text style={styles.title}>lyrics</Text>
         </View>
         <TextInput
-          placeholder="song"
+          placeholder='song'
           style={{ ...styles.inputText, ...styles.input }}
           underlineColorAndroid='transparent'
           onChangeText={songHandler}
         />
         <Text style={styles.inputText}>by</Text>
         <TextInput
-          placeholder="artist"
+          placeholder='artist'
           style={{ ...styles.inputText, ...styles.input }}
           underlineColorAndroid='transparent'
           onChangeText={artistHandler}
@@ -79,7 +77,7 @@ const SearchScreen = props => {
         />
         <View style={styles.button}>
           <Button
-            title="Search"
+            title='Search'
             style={styles.button}
             onPress={pressSearch}
           />
@@ -105,7 +103,6 @@ const mapDispatchToProps = dispatch => ({
   addSearch: (song, artist, lyrics) => dispatch(addSearch(song, artist, lyrics))
 })
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen)
 
 const styles = StyleSheet.create({
@@ -113,7 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   titleContainer: {
     alignItems: 'center',
@@ -121,23 +118,23 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 60,
-    fontFamily: 'nunito-light',
+    fontFamily: 'nunito-light'
   },
   inputContainer: {
     width: '60%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   inputText: {
     fontSize: 30,
-    fontFamily: 'nunito-light',
+    fontFamily: 'nunito-light'
   },
   input: {
     width: '80%',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   button: {
     width: 80,
-    marginTop: 10,
+    marginTop: 10
   }
 })
